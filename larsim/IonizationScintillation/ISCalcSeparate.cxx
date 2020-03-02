@@ -167,6 +167,28 @@ namespace larg4
         
         return;
     }
+
+    // ---------------------------------------------------------------------------
+    // Function for calculating correlated light/charge. - Will Foreman, 2020-03-02
+    void ISCalcSeparate::CalcIonAndScintCorrelated(sim::SimEnergyDeposit const& edep)
+    {
+        fEnergyDeposit = edep.Energy();
+
+        // total number of quanta (ions + excitons): N = dE/W_ph (W_ph = 19.5 eV)
+        // TODO: retrieve this from LArProperties, similar to fGeVToElectrons,
+        // which is just 1/W_ion (W_ion = 23.6 eV)
+        double Wph = 19.5 * 1.e-6; // MeV
+        double Nq = fEnergyDeposit / Wph;  
+
+        // calculate ionization electrons
+        CalcIon(edep);
+
+        // calculate photons
+        fNumScintPhotons = Nq - fNumIonElectrons;
+        
+        return;
+    }
+
     //----------------------------------------------------------------------------
     double ISCalcSeparate::EFieldAtStep(double efield, sim::SimEnergyDeposit const& edep)
     {

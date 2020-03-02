@@ -23,6 +23,7 @@ namespace larg4
         virtual void       Initialize()                                                         = 0;
         virtual void       Reset()                                                              = 0;
         virtual void       CalcIonAndScint(sim::SimEnergyDeposit const& edep)                   = 0;
+        virtual void       CalcIonAndScintCorrelated(sim::SimEnergyDeposit const& edep)         = 0;
         virtual double     EFieldAtStep(double efield, sim::SimEnergyDeposit const& edep)       = 0; //value of field with any corrections for this step
         
         double             EnergyDeposit() const                       {return fEnergyDeposit;}
