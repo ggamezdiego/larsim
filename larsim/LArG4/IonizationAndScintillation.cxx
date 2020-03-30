@@ -8,6 +8,7 @@
 #include "larsim/LArG4/IonizationAndScintillation.h"
 #include "larsim/LArG4/ISCalculationNEST.h"
 #include "larsim/LArG4/ISCalculationSeparate.h"
+#include "larsim/LArG4/ISCalculationCorrelated.h"
 #include "larsim/Simulation/LArG4Parameters.h"
 
 // ROOT includes
@@ -65,6 +66,8 @@ namespace larg4 {
       fISCalc = new larg4::ISCalculationNEST(fEngine);
     else if(fISCalculator.compare("Separate") == 0)
       fISCalc = new larg4::ISCalculationSeparate(fEngine);
+    else if(fISCalculator.compare("Correlated") == 0 )
+      fISCalc = new larg4::ISCalculationCorrelated(fEngine);
     else
       mf::LogWarning("IonizationAndScintillation") << "No ISCalculation set, this can't be good.";
 
